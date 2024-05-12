@@ -4,7 +4,11 @@ from django.http import HttpResponse
 
 
 def home(resquest):
-    return HttpResponse('<h1>HOME </h1>')
+    #return HttpResponse('<h1>HOME </h1>')
+    return render(resquest, 'receitas/home.html', context={
+        'name': 'Teste',
+    })
+    #return render(resquest, 'global/home.html')
 
 def contato(resquest):
     return HttpResponse('<h1>HOME1 </h1>')

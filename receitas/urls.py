@@ -17,7 +17,7 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path
 from django.http import HttpResponse
-from receitas.views import home,contato,sobre
+from receitas.views import home
 
 
 """
@@ -31,8 +31,5 @@ def my_view(resquest):
 urlpatterns = [
     # Página HOME
     path('', home),
-    path('sobre/', sobre),
-    path('contato/', contato),
-    path('admin/', admin.site.urls),
     
 ]

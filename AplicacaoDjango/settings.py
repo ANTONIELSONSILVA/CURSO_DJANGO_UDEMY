@@ -119,10 +119,16 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/5.0/howto/static-files/
 
 #STATIC_URL = 'static/'
+# STATIC é a URL da Página
+
 
 STATIC_URL = '/static/'
+
 STATICFILES_DIRS = [
     BASE_DIR / "/receitas/static",
+    BASE_DIR / "/base_templates/global",
+    BASE_DIR / "/base_templates/global/css",
+    
 ]
 
 

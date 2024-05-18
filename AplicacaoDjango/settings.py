@@ -127,10 +127,10 @@ STATIC_URL = '/static/'
 STATICFILES_DIRS = [
     BASE_DIR / "/receitas/static",
     BASE_DIR / "/base_templates/global",
-    BASE_DIR / "/base_templates/global/css",
     
 ]
 
+STATIC_ROOT = BASE_DIR / 'static'
 
 
 # Default primary key field type

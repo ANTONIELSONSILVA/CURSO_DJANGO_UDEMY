@@ -31,9 +31,12 @@ def my_view(resquest):
         return HttpResponse(HttpResponse.status_code)
 """
 
+# isso afeta a url da aplicação ficando receitas:receita ou receitas:home
+app_name = 'receitas'
+
 urlpatterns = [
     # Página HOME
-    path('', home),
-    path('receitas/<int:id>/', receitas),
+    path('', home, name="home"),
+    path('receitas/<int:id>/', receitas, name="receita"),
     
 ]

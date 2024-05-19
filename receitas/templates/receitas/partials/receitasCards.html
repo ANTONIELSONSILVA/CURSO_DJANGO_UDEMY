@@ -2,13 +2,18 @@
 
 <div class="receita receita-list-item">
     <div class="receita-cover">
-        <!--<img src="{% static 'receitas/receitas-cover.png' %}" alt="receitas-cover"/>-->
-        <img src="{{ receitaGerada.cover.url }}" alt="receitas-cover"/>
 
+        <a href="{% url 'receitas:receita' receitaGerada.id%}">
+            <!--<img src="{% static 'receitas/receitas-cover.png' %}" alt="receitas-cover"/>-->
+            <img src="{{ receitaGerada.cover.url }}" alt="receitas-cover"/>
+        </a>
 
     </div>
     <div class="receita-title-container">
-        <h2 class="receita-title">{{receitaGerada.title}}</h2>
+        <a href="{% url 'receitas:receita' receitaGerada.id%}">
+            <h2 class="receita-title">{{receitaGerada.title}}</h2>
+        </a>
+
     </div>
 
     <div class="receita-author">
@@ -36,9 +41,19 @@
 
     </div>
 
-    <div class="receita-content">
-        <p>{{ receitaGerada.description }}</p>
-    </div>
+
+    {% if is_detail_page is not True %}
+        <div class="receita-content">
+            <p>{{ receitaGerada.description }}</p>
+        </div>
+    {% else  %}
+        <div class="preparation-steps">
+            <p>{{ receitaGerada.preparation_steps| linebreaks }}</p>
+        </div>
+    {% endif %}
+
+
+
 
     <div class="receita-meta-container">
         <div class="receita-meta receita-preparation">
@@ -56,12 +71,16 @@
 
     </div>
 
+    {% if is_detail_page is not True %}
     <footer class="receita-footer">
-        <a class="receita-read-more button button-dark button-full-width" href="/receitas/3/">
+        <a class="receita-read-more button button-dark button-full-width" href="{% url 'receitas:receita' receitaGerada.id%}">
             <i class="fa fa-eye"></i>
             <span>Ver mais...</span>
         </a>
     </footer>
+    {% endif %}
+
+    
 
 </div>
 

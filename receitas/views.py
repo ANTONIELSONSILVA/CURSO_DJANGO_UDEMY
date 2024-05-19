@@ -12,4 +12,5 @@ def receitas(resquest, id):
     #return HttpResponse('<h1>HOME </h1>')
     return render(resquest, 'receitas/pages/receitas-detail.html', context={
         'receitaGerada': make_receitas(),
+        'is_detail_page': True,
     })

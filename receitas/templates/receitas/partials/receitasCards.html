@@ -2,7 +2,10 @@
 
 <div class="receita receita-list-item">
     <div class="receita-cover">
-        <img src="{% static 'receitas/receitas-cover.png' %}" alt="receitas-cover"/>
+        <!--<img src="{% static 'receitas/receitas-cover.png' %}" alt="receitas-cover"/>-->
+        <img src="{{ receitaGerada.cover.url }}" alt="receitas-cover"/>
+
+
     </div>
     <div class="receita-title-container">
         <h2 class="receita-title">{{receitaGerada.title}}</h2>
@@ -54,7 +57,7 @@
     </div>
 
     <footer class="receita-footer">
-        <a class="receita-read-more button button-dark button-full-width" href="/recipes/3/">
+        <a class="receita-read-more button button-dark button-full-width" href="/receitas/3/">
             <i class="fa fa-eye"></i>
             <span>Ver mais...</span>
         </a>

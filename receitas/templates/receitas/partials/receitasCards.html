@@ -5,24 +5,28 @@
         <img src="{% static 'receitas/receitas-cover.png' %}" alt="receitas-cover"/>
     </div>
     <div class="receita-title-container">
-        <h2 class="receita-title">Lorem ipsum dolor sit amet.</h2>
+        <h2 class="receita-title">{{receitaGerada.title}}</h2>
     </div>
 
     <div class="receita-author">
         <span class="receita-author-item">
             <i class="fa fa-user"></i>
-            Antonielson Silva
+            {{receitaGerada.author.fisrt_name}} {{receitaGerada.author.last_name}}
         </span>
         
         <span class="receita-author-item">
             <i class="fas fa-calendar-alt"></i>
-            16/10/2024 às 11:21
+
+            <!--Verificar na documentação o formato data e hora-->
+
+            {{ receitaGerada.created_at|date:"d/m/Y" }} às {{ receitaGerada.created_at|date:"H:i" }}
+
         </span>
         
         <span class="receita-author-item">
             <a href="/receitas/category/cafe-da-manha/">
                 <i class="fas fa-layer-group"></i>
-                <span>Café da manhã</span>
+                <span>{{ receitaGerada.category.name }}</span>
             </a>
                                    
         </span>
@@ -30,20 +34,20 @@
     </div>
 
     <div class="receita-content">
-        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Cum, harum.</p>
+        <p>{{ receitaGerada.description }}</p>
     </div>
 
     <div class="receita-meta-container">
         <div class="receita-meta receita-preparation">
             <h3 class="receita-meta-title"><i class="fa fa-stopwatch"></i> Preparo</h3>
             <div class="receita-meta-text">
-                0 Minutos
+                {{ receitaGerada.preparation_time }} {{ receitaGerada.preparation_time_unit }} 
             </div>
         </div>
         <div class="receita-meta receita-servings">
             <h3 class="receita-meta-title"><i class="fa fa-pizza-slice"></i> Porções</h3>
             <div class="receita-meta-text">
-                0 Porções
+                {{ receitaGerada.servings }} {{ receitaGerada.servings_unit }}
             </div>
         </div>
 

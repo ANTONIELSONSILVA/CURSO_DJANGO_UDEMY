@@ -4,13 +4,12 @@
 
 {% block content %}
 <div class="main-content main-content-list container">
-    {% include 'receitas/partials/receitasCards.html' %}
-    {% include 'receitas/partials/receitasCards.html' %}
-    {% include 'receitas/partials/receitasCards.html' %}
-
-    {% include 'receitas/partials/receitasCards.html' %}
-    {% include 'receitas/partials/receitasCards.html' %}
-    {% include 'receitas/partials/receitasCards.html' %}
+   
+    <!--receitasGerada esta vindo do views.py do app-->
+    {% for receitaGerada in receitasGerada%}
+        <!--a veriável receitaGerada vai esta disponível dentro de receitasCards.html-->
+        {% include 'receitas/partials/receitasCards.html' %}
+    {% endfor %}
     
 </div>
 {% endblock content %}

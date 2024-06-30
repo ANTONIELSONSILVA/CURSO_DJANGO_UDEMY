@@ -22,6 +22,9 @@ from django.http import HttpResponse
 from . import views
 
 from receitas.views import home, receitas
+from django.conf.urls.static import static
+from django.conf import settings
+
 
 """
 def my_view(resquest):
@@ -37,6 +40,14 @@ app_name = 'receitas'
 urlpatterns = [
     # Página HOME
     path('', home, name="home"),
+    path('receitas/category/<int:category_id>/', views.category, name="category"),
     path('receitas/<int:id>/', receitas, name="receita"),
     
+    
 ]
+
+
+# para que se possa acessar um conteúdo diretamente com por exemplo um imagem
+urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+
+urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)

@@ -1,14 +1,22 @@
 {% load static %}
 
 <div class="receita receita-list-item">
-    <div class="receita-cover">
 
-        <a href="{% url 'receitas:receita' receitaGerada.id%}">
-            <!--<img src="{% static 'receitas/receitas-cover.png' %}" alt="receitas-cover"/>-->
-            <img src="{{ receitaGerada.cover.url }}" alt="receitas-cover"/>
-        </a>
 
-    </div>
+    {% if receitaGerada.cover %}
+        <div class="receita-cover">
+
+            <a href="{% url 'receitas:receita' receitaGerada.id%}">
+                <!--<img src="{% static 'receitas/receitas-cover.png' %}" alt="receitas-cover"/>-->
+                <img src="{{ receitaGerada.cover.url }}" alt="receitas-cover"/>
+            </a>
+
+        </div>
+    {% endif %}
+
+
+
+
     <div class="receita-title-container">
         <a href="{% url 'receitas:receita' receitaGerada.id%}">
             <h2 class="receita-title">{{receitaGerada.title}}</h2>
@@ -19,7 +27,13 @@
     <div class="receita-author">
         <span class="receita-author-item">
             <i class="fa fa-user"></i>
-            {{receitaGerada.author.fisrt_name}} {{receitaGerada.author.last_name}}
+
+            {% if receitaGerada.author.fisrt_name %}
+                {{receitaGerada.author.fisrt_name}} {{receitaGerada.author.last_name}}
+            {% else %}
+                {{receitaGerada.author.username}}
+            {% endif %}
+            
         </span>
         
         <span class="receita-author-item">
@@ -32,7 +46,8 @@
         </span>
         
         <span class="receita-author-item">
-            <a href="/receitas/category/cafe-da-manha/">
+            <!--<a href="/receitas/category/cafe-da-manha/">-->
+                <a href="{% url 'receitas:category' receitaGerada.category.id %}">
                 <i class="fas fa-layer-group"></i>
                 <span>{{ receitaGerada.category.name }}</span>
             </a>

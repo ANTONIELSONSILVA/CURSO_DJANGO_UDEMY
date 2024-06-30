@@ -122,15 +122,22 @@ USE_TZ = True
 # STATIC é a URL da Página
 
 
-STATIC_URL = '/static/'
+
 
 STATICFILES_DIRS = [
-    BASE_DIR / "/receitas/static",
-    BASE_DIR / "/base_templates/global",
+    #BASE_DIR / "/receitas/static",
+    #BASE_DIR / "/base_templates/global",
     
 ]
 
+
+STATIC_URL = '/static/'
 STATIC_ROOT = BASE_DIR / 'static'
+ 
+
+# pasta para armazenar os conteúdo de imagens
+MEDIA_URL = '/media/'
+MEDIA_ROOT = BASE_DIR / 'media'
 
 
 # Default primary key field type

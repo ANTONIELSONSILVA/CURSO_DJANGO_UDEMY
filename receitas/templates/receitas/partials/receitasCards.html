@@ -3,6 +3,7 @@
 <div class="receita receita-list-item">
 
 
+    <!--if para evitar erro e mostra imagem somente quando ela foi cadastrada-->
     {% if receitaGerada.cover %}
         <div class="receita-cover">
 
@@ -28,6 +29,7 @@
         <span class="receita-author-item">
             <i class="fa fa-user"></i>
 
+            <!--mostra do nome do autor se houver-->
             {% if receitaGerada.author.fisrt_name %}
                 {{receitaGerada.author.fisrt_name}} {{receitaGerada.author.last_name}}
             {% else %}

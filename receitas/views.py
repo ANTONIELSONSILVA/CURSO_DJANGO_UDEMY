@@ -5,7 +5,12 @@ from receitas.models import Receitas
 def home(resquest):
     
     # Objeto herdado em Receitas
-    receitas = Receitas.objects.all().order_by('-id')
+    #receitas = Receitas.objects.all().order_by('-id')
+    
+    # filtra somente pela publicadas
+    receitas = Receitas.objects.filter(
+        is_published=True
+    ).order_by('-id')
     
     #return HttpResponse('<h1>HOME </h1>')
     return render(resquest, 'receitas/pages/home.html', context={
@@ -19,11 +24,12 @@ def category(resquest, category_id):
     # Objeto herdado em Receitas
     # usasse category__id dentgro de filter para acessa o id de category dentro de models
     receitas = Receitas.objects.filter(
-        category__id=category_id
+        category__id=category_id,
+        is_published=True 
     ).order_by('-id') # id decresente
     
     #return HttpResponse('<h1>HOME </h1>')
-    return render(resquest, 'receitas/pages/home.html', context={
+    return render(resquest, 'receitas/pages/category.html', context={
         #'receitasGerada': [make_receitas() for _ in range(6)],
         'receitasGerada': receitas,
     })

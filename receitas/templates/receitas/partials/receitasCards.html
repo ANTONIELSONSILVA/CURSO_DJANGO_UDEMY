@@ -26,17 +26,25 @@
     </div>
 
     <div class="receita-author">
-        <span class="receita-author-item">
-            <i class="fa fa-user"></i>
+            <span class="receita-author-item">
+                <i class="fa fa-user"></i>
 
-            <!--mostra do nome do autor se houver-->
-            {% if receitaGerada.author.fisrt_name %}
-                {{receitaGerada.author.fisrt_name}} {{receitaGerada.author.last_name}}
-            {% else %}
-                {{receitaGerada.author.username}}
-            {% endif %}
-            
-        </span>
+                {% if  receitaGerada.author is not None%}
+
+                    <!--mostra do nome do autor se houver-->
+                    {% if receitaGerada.author.fisrt_name %}
+                        {{receitaGerada.author.fisrt_name}} {{receitaGerada.author.last_name}}
+                    {% else %}
+                        {{receitaGerada.author.username}}
+                    {% endif %}
+
+                {% else %}
+                    Desconhecido
+                {% endif %}
+                
+            </span>
+        
+
         
         <span class="receita-author-item">
             <i class="fas fa-calendar-alt"></i>
@@ -47,14 +55,17 @@
 
         </span>
         
+
+        <!-- onde gera a receita-->
+        {% if receitaGerada.category is not None %}
         <span class="receita-author-item">
             <!--<a href="/receitas/category/cafe-da-manha/">-->
                 <a href="{% url 'receitas:category' receitaGerada.category.id %}">
-                <i class="fas fa-layer-group"></i>
-                <span>{{ receitaGerada.category.name }}</span>
-            </a>
-                                   
+                    <i class="fas fa-layer-group"></i>
+                    <span>{{ receitaGerada.category.name }}</span>
+                </a>                           
         </span>
+        {% endif %}
 
     </div>
 

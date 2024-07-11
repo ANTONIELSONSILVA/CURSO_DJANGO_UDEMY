@@ -34,10 +34,11 @@ class Receitas(models.Model):
     # blank para permitir que não seja obrigatório a importação de uma imagem
     cover = models.ImageField(upload_to='receitas/covers/%Y/%m/%d/', blank=True, default='')
     
-    category = models.ForeignKey(Category, on_delete=models.SET_NULL, null=True, blank=True)
+    category = models.ForeignKey(Category, on_delete=models.SET_NULL, null=True, blank=True, default=None)
     
     author = models.ForeignKey(
-        User, on_delete=models.SET_NULL, null=True
+        # tratamento para quando for deletado ou se pode ficar em branco
+        User, on_delete=models.SET_NULL, null=True, blank=True, default=None
     )
     
     

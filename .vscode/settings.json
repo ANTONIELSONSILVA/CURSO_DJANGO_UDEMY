@@ -1,0 +1,7 @@
+{
+    "python.testing.pytestArgs": [
+        "receitas"
+    ],
+    "python.testing.unittestEnabled": false,
+    "python.testing.pytestEnabled": true
+}

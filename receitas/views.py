@@ -69,6 +69,8 @@ def category(request, category_id):
 # viewer de quando clica na receita
 def receitas(request, id):
     #return HttpResponse('<h1>HOME </h1>')
+    
+    # usando objects para informar páginas não encontradas
     receitaDetalhes = Receitas.objects.filter(
         pk=id,
         is_published=True,

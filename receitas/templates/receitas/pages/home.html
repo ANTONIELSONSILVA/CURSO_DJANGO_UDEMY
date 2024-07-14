@@ -1,6 +1,6 @@
 {% extends "global/base.html" %}
 
-{% block title %} HOME {% endblock title %}
+{% block title %} HOME | {% endblock title %}
 
 {% block content %}
 <div class="main-content main-content-list container">
@@ -9,6 +9,10 @@
     {% for receitaGerada in receitasGerada%}
         <!--a veriável receitaGerada vai esta disponível dentro de receitasCards.html-->
         {% include 'receitas/partials/receitasCards.html' %}
+    {% empty%}
+        <div class="center">
+            <h1>Receitas não encontradas</h1>
+        <div>
     {% endfor %}
     
 </div>

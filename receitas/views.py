@@ -5,6 +5,9 @@ from receitas.models import Receitas
 from django.http import HttpResponse,HttpRequest
 from django.http import Http404
 
+
+
+# recebe uma view devolve uma responce 
 def home(resquest):
     
     # Objeto herdado em Receitas

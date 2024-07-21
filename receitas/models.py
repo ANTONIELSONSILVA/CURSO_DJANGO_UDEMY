@@ -14,7 +14,7 @@ class Category(models.Model):
 class Receitas(models.Model):
     title = models.CharField(max_length=100)
     description = models.TextField()
-    slug = models.SlugField()
+    slug = models.SlugField(unique=True)
     preparation_time = models.IntegerField()
     preparation_time_unit = models.CharField(max_length=65)
     servings = models.IntegerField()

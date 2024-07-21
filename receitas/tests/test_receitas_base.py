@@ -1,25 +1,31 @@
 from django.test import TestCase
 from receitas.models import Category, Receitas, User
 
+# Contador global para garantir unicidade dos nomes de usuário
+global_user_counter = 0
+
 class ReceitasTEstBase(TestCase):
     
     def setUp(self) -> None:
         self.make_receita()
         return super().setUp()
     
-    
     def make_category(self, name='Category'):
         return Category.objects.create(name=name)
         
-    
     def make_author(
         self,
             first_name='user',
             last_name='name',
-            username='username',
+            username=None,
             password='123456',
             email='username@email.com.br',
     ):
+        global global_user_counter
+        if username is None:
+            username = f'username_{global_user_counter}'
+            global_user_counter += 1
+        
         return User.objects.create_user(
             first_name=first_name,
             last_name=last_name,
@@ -53,18 +59,16 @@ class ReceitasTEstBase(TestCase):
             author_data = {}   
             
         return Receitas.objects.create(
-            
             category=self.make_category(**category_data),
             author=self.make_author(**author_data),
-            
-            title = title,
-            description = description,
-            slug = slug,
+            title=title,
+            description=description,
+            slug=slug,
             preparation_time=preparation_time,
-            preparation_time_unit = preparation_time_unit,
-            servings = servings,
-            servings_unit = servings_unit,
-            preparation_steps = preparation_steps,
-            preparation_steps_is_html = preparation_steps_is_html,
-            is_published = is_published,
+            preparation_time_unit=preparation_time_unit,
+            servings=servings,
+            servings_unit=servings_unit,
+            preparation_steps=preparation_steps,
+            preparation_steps_is_html=preparation_steps_is_html,
+            is_published=is_published,
         )

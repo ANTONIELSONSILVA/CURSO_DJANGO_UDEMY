@@ -6,7 +6,7 @@ from unittest import skip
 
 # usado para pular um teste
 # @skip('Mensagem informando o desativação do teste')
-class ReceitasViewsTest(ReceitasTEstBase):
+class ReceitasHomeViewTest(ReceitasTEstBase):
            
     def test_receita_home_views_function_is_correct(self):
         view = resolve('/')
@@ -98,28 +98,3 @@ class ReceitasViewsTest(ReceitasTEstBase):
             '<h1>Receitas não encontradas</h1>',
             response.content.decode('utf-8')
         ) 
-        
-
-    def test_recipe_search_user_correct_view_function(self):
-        url = reverse('receitas:search')
-        resolved = resolve(url)
-        self.assertIs(resolved.func, views.search)
-        
-    def test_receitas_search_loads_correct_template(self):
-        response = self.client.get(reverse('receitas:search'))
-        self.assertTemplateUsed(response, 'receitas/pages/search.html')
-        
-        
-    def test_receitas_search_raises_404_if_no_search_term(self):
-        response = self.client.get(reverse('receitas:search'))
-        self.assertEqual(response.status_code, 404)
-        
-        
-    def  test_receitas_search_term_is_on_page_title_and_escaped(self):
-        url = reverse('receitas:search') + '?q=Teste'
-        response = self.client.get(url)
-        self.assertIn(
-            'Search for &quot;Teste&quot;',
-            response.content.decode('utf-8')
-        )
-        

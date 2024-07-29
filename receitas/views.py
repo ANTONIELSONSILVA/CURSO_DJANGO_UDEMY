@@ -83,3 +83,19 @@ def receitas(request, id):
         'receitaGerada': receitaDetalhes,
         'is_detail_page': True,
     })
+    
+    
+def search(request):
+    
+    # se não receber q o padrã oé None, exitando pesquisa somente com espaço
+    #search_term = request.GET.get('q', None)
+    # remove espaços laterais
+    search_term = request.GET.get('q', '').strip()
+    
+    if not search_term:
+        raise Http404()
+    
+    return render(request, 'receitas/pages/search.html',{
+        'page_title': f'Search for "{search_term}" |',
+        'search_term': search_term,
+    })

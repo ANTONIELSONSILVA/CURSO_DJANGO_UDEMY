@@ -21,7 +21,7 @@ from django.http import HttpResponse
 
 from . import views
 
-from receitas.views import home, receitas
+from receitas.views import home, receitas, search
 from django.conf.urls.static import static
 from django.conf import settings
 
@@ -40,9 +40,10 @@ app_name = 'receitas'
 urlpatterns = [
     # Página HOME
     path('', home, name="home"),
-    path('receitas/category/<int:category_id>/', views.category, name="category"),
+    path('receitas/search/', search, name="search"),
     path('receitas/<int:id>/', receitas, name="receita"),
-    
+    path('receitas/category/<int:category_id>/', views.category, name="category"),
+       
     
 ]
 

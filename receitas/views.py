@@ -4,6 +4,7 @@ from receitas.utils.receitas.factory import make_receitas
 from receitas.models import Receitas
 from django.http import HttpResponse,HttpRequest
 from django.http import Http404
+from django.db.models import Q
 
 
 
@@ -95,7 +96,23 @@ def search(request):
     if not search_term:
         raise Http404()
     
+    
+    #__contains para buscar nomes parecidos. (__icontains) maiusculas e minusculas 
+    receitasPesquisa = Receitas.objects.filter(
+        
+        # | = or 
+        # __
+        Q(
+            Q(title__icontains=search_term) |
+            Q(description__icontains=search_term),    
+        ),
+        is_published=True
+    
+    ).order_by('-id')
+    
+    # o return retorna variaveis para serem usadas nos templates
     return render(request, 'receitas/pages/search.html',{
         'page_title': f'Search for "{search_term}" |',
         'search_term': search_term,
+        'receitasGerada': receitasPesquisa,
     })

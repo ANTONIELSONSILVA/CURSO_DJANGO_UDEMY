@@ -1,0 +1,13 @@
+{% if receitasGerada.has_other_pages %}
+
+    <div class="container pagination">
+        
+        <div class="pagination-conten">
+            {% for page in pagination_range.pagination %}
+                <a class="page-link page-item" href="?page={{page}}">{{ page  }}</a>
+            {% endfor %}
+        </div>
+    
+    </div>
+
+{% endif %}

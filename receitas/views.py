@@ -1,11 +1,11 @@
 from django.shortcuts import render, get_list_or_404, get_object_or_404
-
 from receitas.utils.receitas.factory import make_receitas
 from receitas.models import Receitas
 from django.http import HttpResponse,HttpRequest
 from django.http import Http404
 from django.db.models import Q
-
+from django.core.paginator import Paginator
+from .tests.utils.pagination import make_pagination_range
 
 
 # recebe uma view devolve uma responce 
@@ -19,10 +19,32 @@ def home(resquest):
         is_published=True
     ).order_by('-id')
     
+    
+    # divide os dados vindo do model em 3 e podemos acessar no page_obj
+    # ao invés de acessarmos os dados do model acessamos a paginação
+    # o número é o número de receitas na base
+    try:
+        current_page = int(resquest.GET.get('page', 1))
+    except ValueError:
+        current_page = 1
+        
+    paginator = Paginator(receitas, 2)
+    page_obj = paginator.get_page(current_page)
+    
+    
+    
+    
+    pagination_range = make_pagination_range(
+        paginator.page_range,
+        4,
+        current_page,
+    )
+    
     #return HttpResponse('<h1>HOME </h1>')
     return render(resquest, 'receitas/pages/home.html', context={
         #'receitasGerada': [make_receitas() for _ in range(6)],
-        'receitasGerada': receitas,
+        'receitasGerada': page_obj,
+        'pagination_range' : pagination_range,
     })
 
 

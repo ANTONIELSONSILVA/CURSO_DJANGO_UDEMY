@@ -4,12 +4,14 @@ from receitas.models import Receitas
 from django.http import HttpResponse,HttpRequest
 from django.http import Http404
 from django.db.models import Q
-from django.core.paginator import Paginator
-from .tests.utils.pagination import make_pagination_range
+from .utils.receitas.pagination import make_pagination
+
+#receitas por página
+receitas_pagina = 2
 
 
 # recebe uma view devolve uma responce 
-def home(resquest):
+def home(request):
     
     # Objeto herdado em Receitas
     #receitas = Receitas.objects.all().order_by('-id')
@@ -19,29 +21,10 @@ def home(resquest):
         is_published=True
     ).order_by('-id')
     
-    
-    # divide os dados vindo do model em 3 e podemos acessar no page_obj
-    # ao invés de acessarmos os dados do model acessamos a paginação
-    # o número é o número de receitas na base
-    try:
-        current_page = int(resquest.GET.get('page', 1))
-    except ValueError:
-        current_page = 1
-        
-    paginator = Paginator(receitas, 2)
-    page_obj = paginator.get_page(current_page)
-    
-    
-    
-    
-    pagination_range = make_pagination_range(
-        paginator.page_range,
-        4,
-        current_page,
-    )
+    page_obj, pagination_range = make_pagination(request, receitas, receitas_pagina)
     
     #return HttpResponse('<h1>HOME </h1>')
-    return render(resquest, 'receitas/pages/home.html', context={
+    return render(request, 'receitas/pages/home.html', context={
         #'receitasGerada': [make_receitas() for _ in range(6)],
         'receitasGerada': page_obj,
         'pagination_range' : pagination_range,
@@ -79,10 +62,12 @@ def category(request, category_id):
     primeira_receita = receitas[0]
     categoria_nome = primeira_receita.category.name if primeira_receita else 'Categoria Desconhecida'
     
+    page_obj, pagination_range = make_pagination(request, receitas, receitas_pagina)
     
     return render(request, 'receitas/pages/category.html', context={
         # Variáveis de contexto que podem ser chamadas dentro do HTML
-        'receitasGerada': receitas,
+        'receitasGerada': page_obj,
+        'pagination_range': pagination_range,
         
         # f de tipo String
         'title': f'{categoria_nome} - Category | '
@@ -132,9 +117,13 @@ def search(request):
     
     ).order_by('-id')
     
+    page_obj, pagination_range = make_pagination(request, receitas, receitas_pagina)
+    
     # o return retorna variaveis para serem usadas nos templates
     return render(request, 'receitas/pages/search.html',{
         'page_title': f'Search for "{search_term}" |',
         'search_term': search_term,
-        'receitasGerada': receitasPesquisa,
+        'receitasGerada': page_obj,
+        'pagination_range': pagination_range,
+        'additional_url_query' : f'&q={search_term}',
     })

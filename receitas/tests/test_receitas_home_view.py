@@ -69,8 +69,8 @@ class ReceitasHomeViewTest(ReceitasTEstBase):
         
         
         
-        # para verificar o conteúdo
-        skip('WIP = Work in progress')
+    # para verificar o conteúdo
+    skip('WIP = Work in progress')
     def test_receita_home_loads_receitas_content(self):
         
         self.make_receita()
@@ -87,10 +87,11 @@ class ReceitasHomeViewTest(ReceitasTEstBase):
         # verificando se tem uma receita cadastrada
         self.assertEqual(len(response_context_receita), 1)
         
-    skip('WIP = Work in progress') 
+        
+    skip('WIP = Work in progress')
     def test_receita_home_template_dont_load_receitas_not_published(self):
         
-        self.make_receita(is_published=False)
+        self.make_receita(is_published=F alse)
         
         response = self.client.get(reverse('receitas:home'))
         
@@ -98,3 +99,16 @@ class ReceitasHomeViewTest(ReceitasTEstBase):
             '<h1>Receitas não encontradas</h1>',
             response.content.decode('utf-8')
         ) 
+        
+        
+    #skip('WIP = Work in progress')
+    def test_receita_home_is_pagination(self):
+        for i  in range(8):
+            kwargs = {'slug': f'r{i}', 'author_data':{'username': f'U{i}'}, }
+            self.make_receita(**kwargs)
+        
+        response = self.client.get(reverse('receitas:home'))
+        receitas = response.context['receitasGerada']
+        paginator = receitas.paginator
+        
+        self.assertEqual(paginator.num_pages,8)

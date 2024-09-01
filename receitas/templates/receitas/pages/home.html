@@ -3,6 +3,17 @@
 {% block title %} HOME | {% endblock title %}
 
 {% block content %}
+
+{% if  message%}
+<div class="main-content center container">
+    
+    {% for message in messages %}
+        {{ message }}
+    {% endfor %}
+
+</div>
+{% endif %}
+
 <div class="main-content main-content-list container">
    
     <!--receitasGerada esta vindo do views.py do app-->

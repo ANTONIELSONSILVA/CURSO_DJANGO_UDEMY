@@ -5,6 +5,8 @@ from django.http import HttpResponse,HttpRequest
 from django.http import Http404
 from django.db.models import Q
 from .utils.receitas.pagination import make_pagination
+from django.contrib import messages
+
 
 #receitas por página
 receitas_pagina = 2
@@ -22,6 +24,11 @@ def home(request):
     ).order_by('-id')
     
     page_obj, pagination_range = make_pagination(request, receitas, receitas_pagina)
+    
+    
+    
+    
+    
     
     #return HttpResponse('<h1>HOME </h1>')
     return render(request, 'receitas/pages/home.html', context={

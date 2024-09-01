@@ -3,6 +3,7 @@ from receitas.models import Category, Receitas, User
 from receitas import views
 from .test_receitas_base import ReceitasTEstBase
 from unittest import skip
+from unittest.mock import patch
 
 # usado para pular um teste
 # @skip('Mensagem informando o desativação do teste')
@@ -91,7 +92,7 @@ class ReceitasHomeViewTest(ReceitasTEstBase):
     skip('WIP = Work in progress')
     def test_receita_home_template_dont_load_receitas_not_published(self):
         
-        self.make_receita(is_published=F alse)
+        self.make_receita(is_published=False)
         
         response = self.client.get(reverse('receitas:home'))
         
@@ -102,8 +103,16 @@ class ReceitasHomeViewTest(ReceitasTEstBase):
         
         
     #skip('WIP = Work in progress')
+    # verificar aula 124
     def test_receita_home_is_pagination(self):
-        for i  in range(8):
+        
+        # trazendo o valor de global de receitas por página
+        import receitas
+        
+        num_receitas = receitas.views.receitas_pagina
+        
+        
+        for i  in range(16):
             kwargs = {'slug': f'r{i}', 'author_data':{'username': f'U{i}'}, }
             self.make_receita(**kwargs)
         
@@ -111,4 +120,5 @@ class ReceitasHomeViewTest(ReceitasTEstBase):
         receitas = response.context['receitasGerada']
         paginator = receitas.paginator
         
-        self.assertEqual(paginator.num_pages,8)
+        # verificar quais são os métodos de paginator
+        self.assertEqual(paginator.num_pages,9)
